@@ -1,0 +1,102 @@
+body {
+  padding-bottom: 3rem;
+  color: #5a5a5a;
+  /*background: whitesmoke;*/
+  background: #a7b8c7; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ffffff, #a7b8c7); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ffffff, #a7b8c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.empty-layout {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 5rem;
+  height: 100vh
+}
+
+.auth-card {
+  width: 500px
+}
+
+.auth-submit {
+  width: 100%
+}
+
+.helper-text.invalid {
+  color: #f44336
+}
+
+.col-lg-4 {
+  text-align: center;
+}
+
+a {
+  color: #5a5a5a;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #5a5a5a;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  color: #5a5a5a;
+  margin-right: 24px;
+  -webkit-transition: color .3s ease;
+  transition: color .3s ease;
+  text-transform: capitalize;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
+  color: #578aff;
+}
+
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+  background-color: #525252
+}
+
+.btn, .btn-large, .btn-small {
+  text-decoration: none;
+  color: #fff;
+  background-color: #333a40;
+  text-align: center;
+  letter-spacing: .5px;
+  -webkit-transition: background-color .2s ease-out;
+  transition: background-color .2s ease-out;
+  cursor: pointer
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+  background-color: #929292
+}
+
+nav ul li.active {
+  background-color: rgba(0, 0, 0, 0)
+}
+
+nav ul a:hover {
+  background-color: rgba(0, 0, 0, 0)
+}
+
+.app-content {
+  padding-top: 64px;
+  padding-left: 250px;
+  transition: padding-left .3s;
+  position: relative
+}
+
+.app-content.full {
+  padding-left: 0
+}
