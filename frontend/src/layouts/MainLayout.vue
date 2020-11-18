@@ -5,11 +5,11 @@
     </header>
 
     <main role="main">
-      <router-view/>
+      <router-view />
     </main>
 
     <footer class="container">
-      <hr class="featurette-divider"/>
+      <hr class="featurette-divider" />
       <p class="float-right"><a href="#">Наверх</a></p>
       <p>
         &copy; 2020 polyglot. &middot;

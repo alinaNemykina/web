@@ -9,14 +9,16 @@
           <a href="#">
             <div class="row no-gutters">
               <div class="col-md-4">
-                <img src="" class="card-img" alt="..."/>
+                <img src="" class="card-img" alt="..." />
               </div>
               <div class="col-md-8">
                 <div class="card-body">
                   <h5 class="card-title">Задание 1. Прокачаем грамматику?</h5>
                   <p class="card-text">Present Simple</p>
                   <p class="card-text">
-                    <small class="text-muted">Много грамматики не бывает!</small>
+                    <small class="text-muted"
+                      >Много грамматики не бывает!</small
+                    >
                   </p>
                 </div>
               </div>
@@ -27,11 +29,13 @@
           <a href="#">
             <div class="row no-gutters">
               <div class="col-md-4">
-                <img src="" class="card-img" alt="..."/>
+                <img src="" class="card-img" alt="..." />
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">Задание 2. Слабо отгадать все слова?</h5>
+                  <h5 class="card-title">
+                    Задание 2. Слабо отгадать все слова?
+                  </h5>
                   <p class="card-text">Перевод-слово</p>
                   <p class="card-text">
                     <small class="text-muted">Давай попробуем вместе!</small>
@@ -45,7 +49,7 @@
           <a href="#">
             <div class="row no-gutters">
               <div class="col-md-4">
-                <img src="" class="card-img" alt="..."/>
+                <img src="" class="card-img" alt="..." />
               </div>
               <div class="col-md-8">
                 <div class="card-body">
@@ -63,7 +67,7 @@
           <a href="#">
             <div class="row no-gutters">
               <div class="col-md-4">
-                <img src="img/translation.jpeg" class="card-img" alt="..."/>
+                <img src="img/translation.jpeg" class="card-img" alt="..." />
               </div>
               <div class="col-md-8">
                 <div class="card-body">

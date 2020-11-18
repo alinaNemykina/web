@@ -13,11 +13,12 @@ export default {
   computed: {
     layout() {
       console.log();
-      return (this.$route.meta.layout || 'empty') + '-layout'
+      return (this.$route.meta.layout || "empty") + "-layout";
     }
   },
   components: {
-    EmptyLayout, MainLayout
+    EmptyLayout,
+    MainLayout
   }
 };
 </script>
