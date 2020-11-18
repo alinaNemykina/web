@@ -7,7 +7,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    meta: {layout: "main"},
+    meta: { layout: "main" },
     component: () => import("../views/Home")
   },
   {
@@ -33,6 +33,12 @@ const routes = [
     name: "Dictionary",
     meta: { layout: "main" },
     component: () => import("../views/Dictionary")
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    meta: { layout: "main" },
+    component: () => import("../views/Profile")
   }
 ];
 

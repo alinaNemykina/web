@@ -100,3 +100,7 @@ nav ul a:hover {
 .app-content.full {
   padding-left: 0
 }
+
+.form {
+  max-width: 500px
+}
