@@ -6,8 +6,15 @@
 
     <div class="album">
       <div class="container">
-        <div class="row in-line" v-for="item in items" v-bind:key="item">
-          <RecommendedVocabulary v-bind:recommended-vocabulary="item"></RecommendedVocabulary>
+        <div class="row">
+          <RecommendedVocabulary v-bind:recommended-vocabulary="items[0]"></RecommendedVocabulary>
+          <RecommendedVocabulary v-bind:recommended-vocabulary="items[1]"></RecommendedVocabulary>
+          <RecommendedVocabulary v-bind:recommended-vocabulary="items[2]"></RecommendedVocabulary>
+        </div>
+        <div class="row">
+          <RecommendedVocabulary v-bind:recommended-vocabulary="items[3]"></RecommendedVocabulary>
+          <RecommendedVocabulary v-bind:recommended-vocabulary="items[4]"></RecommendedVocabulary>
+          <RecommendedVocabulary v-bind:recommended-vocabulary="items[5]"></RecommendedVocabulary>
         </div>
       </div>
     </div>
@@ -57,6 +64,24 @@ export default {
           title: "Набор слов \"Чувства и эмоции\" ",
           numOfElements: 99,
           imagePath: "img/чувства%20и%20эмоции.jpg"
+        },
+        {
+          id: 7,
+          title: "Набор слов \"Еда\" ",
+          numOfElements: 100,
+          imagePath: "img/еда.jpg"
+        },
+        {
+          id: 8,
+          title: "Набор слов \"Мебель\" ",
+          numOfElements: 100,
+          imagePath: "img/мебель.jpg"
+        },
+        {
+          id: 9,
+          title: "Набор слов \"Напитки\" ",
+          numOfElements: 100,
+          imagePath: "img/напитки.jpg"
         },
       ],
     }

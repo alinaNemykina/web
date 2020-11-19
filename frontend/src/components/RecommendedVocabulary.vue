@@ -1,7 +1,7 @@
 <template>
-  <div class="col-md-12">
+  <div class="col-md-3">
     <div class="card mb-2 mr-10 shadow-sm">
-      <img :src="recommendedVocabulary.imagePath" width="200" height="200" class="card-img-top"/>
+      <img :src="recommendedVocabulary.imagePath" class="card-img-top set-image"/>
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
           <div class="card-text">
