@@ -1,9 +1,6 @@
 <template>
-  <div class="app-page">
+  <div class="app-page" @submit.prevent="submitHandler">
     <div>
-      <!--      <div class="page-title">-->
-      <!--        <h3>Профиль</h3>-->
-      <!--      </div>-->
       <div class="container py-5">
         <h1 class="jumbotron-heading">Профиль</h1>
       </div>
@@ -11,9 +8,18 @@
       <div class="container">
         <form class="form">
           <div class="input-field">
-            <input id="description" type="text" />
+            <input
+              id="description"
+              type="text"
+              v-model.trim="name"
+              :class="{ invalid: $v.name.$dirty && !$v.name.required }"
+            />
             <label for="description">Имя</label>
-            <span class="helper-text invalid">name</span>
+            <small
+              class="helper-text invalid"
+              v-if="$v.name.$dirty && !$v.name.required"
+            >Поле Имя не должно быть пустым</small
+            >
           </div>
 
           <button class="btn waves-effect waves-light" type="submit">
@@ -37,7 +43,6 @@
                 Баланс печенек
                 <p><small class="text-muted">0</small></p>
               </div>
-              <!--            <div class="col py-3">-->
               <div class="py-3 ml-5">
                 <button type="button" class="btn waves-effect waves-light">
                   Перейти к заданиям
@@ -53,8 +58,28 @@
 </template>
 
 <script>
+import { required } from "vuelidate/lib/validators";
+
 export default {
-  name: "Profile"
+  name: "Profile",
+  data: () => ({
+    name: "",
+  }),
+  validations: {
+    name: { required },
+  },
+  methods: {
+    submitHandler() {
+      if (this.$v.$invalid) {
+        this.$v.$touch();
+        return;
+      }
+      const formData = {
+        name: this.name
+      };
+      console.log(formData);
+    }
+  }
 };
 </script>
 
