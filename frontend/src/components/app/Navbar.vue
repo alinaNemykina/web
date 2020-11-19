@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-      <img src="" alt="" height="30" width="100" />
-    </a>
+    <router-link class="navbar-brand" to="/" href="#">
+      <img src="img/nav-logo.png" alt="" height="30" width="100" />
+    </router-link>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto flex-md-row ">
         <router-link
@@ -58,11 +58,9 @@ export default {
   },
   data: () => ({
     links: [
-      { title: "ГЛАВНАЯ", url: "/", exact: true },
       { title: "Задания", url: "/tasks" },
-      // { title: 'Курсы', url: '/courses' },
+      { title: 'Курсы', url: '/courses' },
       { title: "Словарь", url: "/dictionary" }
-      // { title: 'Войти', url: '/login' },
     ]
   }),
   mounted() {
