@@ -39,6 +39,12 @@ const routes = [
     name: "Profile",
     meta: { layout: "main" },
     component: () => import("../views/Profile")
+  },
+  {
+    path: "/courses",
+    name: "Courses",
+    meta: { layout: "main" },
+    component: () => import("../views/Courses")
   }
 ];
 
