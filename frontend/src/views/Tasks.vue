@@ -19,37 +19,33 @@ export default {
   components: {Task},
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          category: "Прокачаем грамматику?",
-          title: "Present Simple",
-          explanation: "Много грамматики не бывает!",
-          imagePath: "img/grammar.png"
-        },
-        {
-          id: 2,
-          category: "Слабо отгадать все слова?",
-          title: "Перевод-слово",
-          explanation: "Давай попробуем вместе!",
-          imagePath: "img/translation_.jpeg"
-        },
-        {
-          id: 3,
-          category: "Читай скорее текст!",
-          title: "Good friends are like stars.",
-          explanation: "И добавляй слова",
-          imagePath: "img/reading.jpeg"
-        },
-        {
-          id: 4,
-          category: "Смотри классное видео!",
-          title: "Clothes Vocabulary 1 - Sentences by ELF Learning",
-          explanation: "И учи незнакомые слова!",
-          imagePath: "img/translation.jpeg"
-        }
-      ]
+      items: []
     }
+  },
+  created() {
+    const access_token = JSON.parse(localStorage.getItem('access_token'));
+    // const uid = localStorage.getItem('user_id')
+
+    this.$http.get('/api/v1/tasks/' + '85e1ffd0-40a9-11eb-b378-0242ac130002', {
+      headers: {
+        'Authorization': 'Bearer ' + access_token,
+      }, baseURL: 'http://localhost:8081/'
+    })
+      .then((response) => {
+        let data = response.data
+        this.items.push(data.courseTaskReadDto, data.textExerciseReadDto, data.videoExerciseReadDto, data.wordReadDto)
+        for (let i = 0; i < 4; i++) {
+          this.items[i].front_id = i + 1
+        }
+
+        localStorage.setItem('tasks', this.items[1])
+
+        this.items[0].href = "CourseTask"
+        this.items[1].href = "TextTask"
+        this.items[2].href = "VideoTask"
+        this.items[3].href = "TranslateTask"
+
+      })
   }
 };
 </script>

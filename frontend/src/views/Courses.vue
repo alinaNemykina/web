@@ -38,65 +38,28 @@ export default {
   components: {Course},
   computed: {
     grammaticalItems: function () {
-      return this.items.filter(item => item.category === "grammatical")
+      return this.items.filter(item => item.category === "Грамматические курсы")
     },
     thematicItems: function () {
-      return this.items.filter(item => item.category === "thematic")
+      return this.items.filter(item => item.category === "Тематические курсы")
     }
   },
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          name: "Для начинающего уровня",
-          numberOfTopics: 6,
-          category: "grammatical"
-        },
-        {
-          id: 2,
-          name: "Для среднего уровня",
-          numberOfTopics: 4,
-          category: "grammatical"
-        },
-        {
-          id: 3,
-          name: "Для продвинутого уровня",
-          numberOfTopics: 4,
-          category: "grammatical"
-        },
-        {
-          id: 4,
-          name: "Для общения",
-          numberOfTopics: 1,
-          category: "thematic"
-        },
-        {
-          id: 5,
-          name: "Для начинающих",
-          numberOfTopics: 5,
-          category: "thematic"
-        },
-        {
-          id: 6,
-          name: "Для экзаменов",
-          numberOfTopics: 3,
-          category: "thematic"
-        },
-        {
-          id: 7,
-          name: "Для работы",
-          numberOfTopics: 5,
-          category: "thematic"
-        },
-        {
-          id: 8,
-          name: "Для увлечений",
-          numberOfTopics: 3,
-          category: "thematic"
-        }
-      ]
+      items: [],
     }
+  },
+  created() {
+    const access_token = JSON.parse(localStorage.getItem('access_token'));
+
+    this.$http.get('/api/v1/courses/all', { headers: {
+      'Authorization': 'Bearer ' + access_token,
+    }, baseURL: 'http://localhost:8081/'})
+      .then((response) => {
+        console.log(response.data)
+        this.items = [...response.data]
+        console.log(this.items[0].category)
+      })
   }
 }
 </script>

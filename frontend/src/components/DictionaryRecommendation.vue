@@ -28,63 +28,18 @@ export default {
   components: {RecommendedVocabulary},
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          title: "Набор слов \"Еда\" ",
-          numOfElements: 100,
-          imagePath: "img/еда.jpg"
-        },
-        {
-          id: 2,
-          title: "Набор слов \"Мебель\" ",
-          numOfElements: 100,
-          imagePath: "img/мебель.jpg"
-        },
-        {
-          id: 3,
-          title: "Набор слов \"Напитки\" ",
-          numOfElements: 100,
-          imagePath: "img/напитки.jpg"
-        },
-        {
-          id: 4,
-          title: "Набор слов \"Семья\" ",
-          numOfElements: 100,
-          imagePath: "img/семья.png"
-        },
-        {
-          id: 5,
-          title: "Набор слов \"Строение человека\" ",
-          numOfElements: 100,
-          imagePath: "img/строение%20человека.jpg"
-        },
-        {
-          id: 6,
-          title: "Набор слов \"Чувства и эмоции\" ",
-          numOfElements: 99,
-          imagePath: "img/чувства%20и%20эмоции.jpg"
-        },
-        {
-          id: 7,
-          title: "Набор слов \"Еда\" ",
-          numOfElements: 100,
-          imagePath: "img/еда.jpg"
-        },
-        {
-          id: 8,
-          title: "Набор слов \"Мебель\" ",
-          numOfElements: 100,
-          imagePath: "img/мебель.jpg"
-        },
-        {
-          id: 9,
-          title: "Набор слов \"Напитки\" ",
-          numOfElements: 100,
-          imagePath: "img/напитки.jpg"
-        },
-      ],
+      items: [],
     }
+  },
+  created() {
+    const access_token = JSON.parse(localStorage.getItem('access_token'));
+
+    this.$http.get('/api/v1/word_set/all', { headers: {
+        'Authorization': 'Bearer ' + access_token,
+      }, baseURL: 'http://localhost:8081/'})
+      .then((response) => {
+        this.items = response.data
+      })
   }
 }
 </script>

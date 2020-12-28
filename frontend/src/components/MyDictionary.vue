@@ -21,7 +21,15 @@
               ></image>
             </svg>
             <div class="card-body">
-              <h5 class="card-title"><a href="#">Посмотреть</a></h5>
+              <h5 class="card-title">
+                <a href="/all_words">Посмотреть</a>
+                <!--                <router-link to="{{ MyDictionary}}">Посмотреть</router-link>-->
+              </h5>
+
+              <!--              <router-link to="{{ MyDictionary}}" class="card-title">-->
+              <!--                Посмотреть-->
+              <!--                          <i class="material-icons right">send</i>-->
+              <!--              </router-link>-->
             </div>
           </div>
         </div>
@@ -29,21 +37,28 @@
           <div class="row ml-1">
             <div class="col py-1">
               Новые слова
-              <p><small class="text-muted">0 слов</small></p>
+              <p><small class="text-muted">{{ newStatus }} слов</small></p>
             </div>
             <div class="col py-1">
               На изучении
-              <p><small class="text-muted">0 слов</small></p>
+              <p><small class="text-muted">{{ learningStatus }} слов</small></p>
             </div>
             <div class="col py-1">
               Изучено
-              <p><small class="text-muted">0 слов</small></p>
+              <p><small class="text-muted">{{ learnedStatus }} слов</small></p>
             </div>
             <div class="col py-3">
-              <button type="button" class="btn btn-sm btn-outline-secondary">
+              <!--              <button type="button" class="btn btn-sm btn-outline-secondary">-->
+              <!--                <router-link to="/translate_task/:tId" class="btn btn-sm btn-outline-secondary">-->
+              <!--                  Учить слова-->
+              <!--                  <i class="material-icons right">send</i>-->
+              <!--                </router-link>-->
+
+              <a href="/tasks" class="btn waves-effect waves-light">
                 Учить слова
                 <i class="material-icons right">send</i>
-              </button>
+              </a>
+              <!--              </button>-->
             </div>
           </div>
         </div>
@@ -54,7 +69,58 @@
 
 <script>
 export default {
-  name: "MyDictionary"
+  name: "MyDictionary",
+  data() {
+    return {
+      learnedStatus: 0,
+      learningStatus: 0,
+      newStatus: 0,
+      tId: 0,
+      translateTask: "TranslateTask"
+    }
+  },
+  created() {
+    const user_id = JSON.parse(localStorage.getItem('user_id'));
+    const access_token = JSON.parse(localStorage.getItem('access_token'));
+
+    this.$http.get('/api/v1/user2word/count/' + user_id, {
+      headers: {
+        'Authorization': 'Bearer ' + access_token,
+      }, baseURL: 'http://localhost:8081/', //params: {id: user_id}
+    })
+      .then((response) => {
+        this.newStatus = response.data.newStatus
+        this.learningStatus = response.data.learningStatus
+        this.learnedStatus = response.data.learnedStatus
+      })
+
+    this.$http.get('/api/v1/tasks/' + user_id, {
+      headers: {
+        'Authorization': 'Bearer ' + access_token,
+      }, baseURL: 'http://localhost:8081/'
+    })
+      .then((response) => {
+        this.tId = response.data.wordReadDto.id
+        console.log(response.data.wordReadDto.id)
+      })
+  },
+  // methods: {
+  //   handleSubmit() {
+  //     const user_id = JSON.parse(localStorage.getItem('user_id'));
+  //     const access_token = JSON.parse(localStorage.getItem('access_token'));
+  //
+  //     this.$http.get('/api/v1/tasks/' + user_id, {
+  //       headers: {
+  //         'Authorization': 'Bearer ' + access_token,
+  //       }, baseURL: 'http://localhost:8081/'
+  //     })
+  //       .then((response) => {
+  //         this.tId = response.data.wordReadDto.id
+  //       })
+  //     console.log()
+  //     this.$router.push('/translate_task/' + this.tId)
+  //   }
+  // }
 }
 </script>
 

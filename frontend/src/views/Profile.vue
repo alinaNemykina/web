@@ -41,13 +41,16 @@
             <div class="row ml-1">
               <div class="col py-3">
                 Баланс печенек
-                <p><small class="text-muted">0</small></p>
+                <p><small class="text-muted">{{ cookies }}</small></p>
               </div>
               <div class="py-3 ml-5">
-                <button type="button" class="btn waves-effect waves-light">
+                <router-link to="/tasks" class="btn waves-effect waves-light">
                   Перейти к заданиям
                   <i class="material-icons right">send</i>
-                </button>
+                </router-link>
+<!--                <router-link to="/tasks" class="btn waves-effect waves-light">-->
+<!--                  К примеру плана-->
+<!--                </router-link>-->
               </div>
             </div>
           </div>
@@ -64,9 +67,25 @@ export default {
   name: "Profile",
   data: () => ({
     name: "",
+    cookies: 0,
+    uid: localStorage.getItem('user_id'),
+    access_token: JSON.parse(localStorage.getItem('access_token'))
   }),
   validations: {
     name: { required },
+  },
+  created(){
+    let uid = this.uid.substring(1, this.uid.length - 1)
+    console.log(uid)
+    this.$http.get('/api/v1/users/' + uid, {
+      headers: {
+        'Authorization': 'Bearer ' + this.access_token,
+      }, baseURL: 'http://localhost:8081/', //params: {id: user_id}
+    })
+      .then((response) => {
+        console.log(response.data)
+        this.cookies = response.data.balanceOfCookies
+      })
   },
   methods: {
     submitHandler() {
@@ -78,6 +97,20 @@ export default {
         name: this.name
       };
       console.log(formData);
+      // '85e1ffd0-40a9-11eb-b378-0242ac130002'
+      let uid = this.uid.substring(1, this.uid.length - 1)
+
+      this.$http.put('/api/v1/users',
+        {
+          id: uid,
+          username: this.name
+        },
+        { headers: {
+          'Authorization': 'Bearer ' + this.access_token,
+        }, baseURL: 'http://localhost:8081/'})
+        .then((response) => {
+          console.log(response)
+        })
     }
   }
 };

@@ -17,12 +17,12 @@
         <small
           class="helper-text invalid"
           v-if="$v.email.$dirty && !$v.email.required"
-          >Поле Email не должно быть пустым</small
+        >Поле Email не должно быть пустым</small
         >
         <small
           class="helper-text invalid"
           v-else-if="$v.email.$dirty && !$v.email.email"
-          >Введите корректный Email</small
+        >Введите корректный Email</small
         >
       </div>
       <div class="input-field">
@@ -40,12 +40,12 @@
         <small
           class="helper-text invalid"
           v-if="$v.password.$dirty && !$v.password.required"
-          >Поле Пароль не должно быть пустым</small
+        >Поле Пароль не должно быть пустым</small
         >
         <small
           class="helper-text invalid"
           v-else-if="$v.password.$dirty && !$v.password.minLength"
-          >Пароль должен состоять минимум из 6 символов.</small
+        >Пароль должен состоять минимум из 6 символов.</small
         >
       </div>
     </div>
@@ -68,7 +68,8 @@
 </template>
 
 <script>
-import { email, required, minLength } from "vuelidate/lib/validators";
+import {email, required, minLength} from "vuelidate/lib/validators";
+import querystring from "querystring";
 
 export default {
   name: "Login",
@@ -77,8 +78,8 @@ export default {
     password: ""
   }),
   validations: {
-    email: { email, required },
-    password: { required, minLength: minLength(6) }
+    email: {email, required},
+    password: {required, minLength: minLength(6)}
   },
   methods: {
     submitHandler() {
@@ -87,14 +88,50 @@ export default {
         return;
       }
       const formData = {
-        email: this.email,
-        password: this.password
+        username: this.email,
+        password: this.password,
+        grant_type: 'password'
       };
       console.log(formData);
-      this.$router.push("/");
-    }
+      this.$http.post('/oauth/token', querystring.stringify(formData), { headers: {
+          // 'Connection': 'keep-alive',
+          // 'Pragma': 'no-cache',
+          // 'Cache-Control': 'no-cache',
+          // 'Accept': 'application/json, text/plain, */*',
+          // 'DNT': '1',
+          'Authorization': 'Basic dWk6bXJJVG1ndnpSWE9a',
+          // 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          // 'Origin': 'http://localhost:8081',
+          // 'Sec-Fetch-Site': 'same-origin',
+          // 'Sec-Fetch-Mode': 'cors',
+          // 'Sec-Fetch-Dest': 'empty',
+          // 'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+        }, baseURL: 'http://localhost:8081/'})
+        .then((response) => {
+          console.log(response.data)
+          localStorage.setItem('access_token', JSON.stringify(response.data.access_token))
+          localStorage.setItem('user_id', JSON.stringify(response.data.user_id))
+          localStorage.setItem('username', formData.username)
+          this.$router.push({ name: 'Home' })
+        })
+        .catch((error) => console.log(error))
+
+      // this.$http.get('/api/v1/users/' + user_id, {
+      //   headers: {
+      //     'Authorization': 'Bearer ' + access_token,
+      //   }, baseURL: 'http://localhost:8081/', //params: {id: user_id}
+      // })
+      //   .then((response) => {
+      //     this.username = response.data.username
+      //     console.log(username)
+      //   })
+    },
   }
 };
+
+
+
 </script>
 
 <style scoped></style>

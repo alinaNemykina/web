@@ -6,7 +6,7 @@
       </h1>
       <p class="lead font-weight-normal">
         polyglot — это эффективный сервис для увлекательной практики языков.
-        Более 0 человек во всем мире уже с нами. Присоединяйся!
+        Более {{all_user_count}} человек(-a) во всем мире уже с нами. Присоединяйся!
       </p>
     </div>
 
@@ -132,6 +132,21 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  data() {
+    return {
+      all_user_count: 0
+    }
+  },
+  created() {
+    const access_token = JSON.parse(localStorage.getItem('access_token'));
+    this.$http.get('/api/v1/users/all_user_count', { headers: {
+        'Authorization': 'Bearer ' + access_token,
+      }, baseURL: 'http://localhost:8081/'})
+      .then((response) => {
+        console.log(response)
+        this.all_user_count = response.data - 1
+      })
+  }
 };
 </script>

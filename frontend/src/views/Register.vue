@@ -113,10 +113,39 @@ export default {
       const formData = {
         email: this.email,
         password: this.password,
-        name: this.name
+        username: this.name
       };
       console.log(formData);
-      this.$router.push("/");
+
+      // let access_token
+      this.$http.post('/api/register', formData, { headers: {
+          'Content-Type': 'application/json',
+        }, baseURL: 'http://localhost:8081/'})
+        .then((response) => {
+          // access_token = response.data
+          localStorage.setItem('access_token', JSON.stringify(response.data.access_token))
+          localStorage.setItem('user_id', JSON.stringify(response.data.user_id))
+          localStorage.setItem('username', formData.username)
+          this.$router.push({name: 'Login'})
+        })
+        .catch((error) => console.log(error))
+
+      // const loginData = {
+      //   email: this.email,
+      //   password: this.password,
+      //   grant_type: 'password'
+      // };
+      //
+      // this.$http.post('/oauth/token', querystring.stringify(loginData), { headers: {
+      //     'Authorization': 'Basic dWk6bXJJVG1ndnpSWE9a',
+      //     'Content-Type': 'application/x-www-form-urlencoded',
+      //   }, baseURL: 'http://localhost:8081/'})
+      //   .then((response) => {
+      //     console.log(response.data)
+      //     this.$router.push({ name: 'Home' })
+      //   })
+      //   .catch((error) => console.log(error))
+      // this.$router.push("/");
     }
   }
 };

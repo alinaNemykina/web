@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand" to="/" href="#">
-      <img src="img/nav-logo.png" alt="" height="30" width="100" />
+      <img src="img/nav-logo.png" alt="" height="30" width="100"/>
     </router-link>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto flex-md-row ">
@@ -23,7 +23,7 @@
             data-target="dropdown"
             ref="dropdown"
           >
-            User Name
+            {{ this.username }}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
@@ -48,19 +48,23 @@
 
 <script>
 import M from "materialize-css";
+
 export default {
   name: "Navbar",
   methods: {
     logout() {
       console.log("Logout");
+      localStorage.removeItem('user_id')
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('username')
       this.$router.push("/login?message=logout");
     }
   },
   data: () => ({
     links: [
-      { title: "Задания", url: "/tasks" },
-      { title: 'Курсы', url: '/courses' },
-      { title: "Словарь", url: "/dictionary" }
+      {title: "Задания", url: "/tasks"},
+      {title: 'Курсы', url: '/courses'},
+      {title: "Словарь", url: "/dictionary"}
     ]
   }),
   mounted() {
@@ -72,6 +76,20 @@ export default {
     if (this.dropdown && this.dropdown.destroy) {
       this.dropdown.destroy();
     }
+  },
+  created() {
+    const user_id = JSON.parse(localStorage.getItem('user_id'));
+    const access_token = JSON.parse(localStorage.getItem('access_token'));
+
+    this.$http.get('/api/v1/user2word/count/' + user_id, {
+      headers: {
+        'Authorization': 'Bearer ' + access_token,
+      }, baseURL: 'http://localhost:8081/', //params: {id: user_id}
+    })
+      .then((response) => {
+        this.newStatus = response.data
+      })
+    this.username = localStorage.getItem('username')
   }
 };
 </script>
